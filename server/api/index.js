@@ -73,25 +73,10 @@ Root Endpoint
 */
 
 app.get("/", (req, res) => {
-    const database = mongoose.connection.readyState === 1 ? "connected" : "disconnected";
-
     res.json({
-        message: "SevaLink API is working properly",
-        server: "running",
-        database,
-        services: {
-            jwt: process.env.JWT_SECRET ? "configured" : "missing",
-            googleAuth:
-                process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
-                    ? "configured"
-                    : "missing",
-            emailService:
-                process.env.EMAIL_USER && process.env.EMAIL_PASS
-                    ? "configured"
-                    : "missing",
-            smsService: process.env.FAST2SMS_API_KEY ? "configured" : "missing"
-        },
-        timestamp: new Date().toISOString()
+        message: "SevaLink API is running",
+        status: "ok",
+        timestamp: new Date()
     });
 });
 
@@ -109,6 +94,11 @@ MongoDB Connection
 ================================
 */
 
+if (!process.env.MONGO_URI) {
+    console.error("CRITICAL: MONGO_URI is not defined. Server cannot start.");
+    process.exit(1);
+}
+
 if (!mongoose.connection.readyState) {
     mongoose
         .connect(process.env.MONGO_URI)
@@ -117,6 +107,7 @@ if (!mongoose.connection.readyState) {
         })
         .catch((err) => {
             console.error("❌ MongoDB Connection Failed:", err.message);
+            process.exit(1);
         });
 }
 
