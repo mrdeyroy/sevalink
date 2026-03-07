@@ -25,7 +25,7 @@ const AcceptInvite = () => {
 
         setLoading(true);
         try {
-            const res = await axios.post(`http://localhost:5000/api/auth/accept-invite/${token}`, { password });
+            const res = await axios.post(`https://server-gray-three-90.vercel.app/api/auth/accept-invite/${token}`, { password });
 
             // On success, we set token in local storage and redirect to worker dashboard
             localStorage.setItem("user", JSON.stringify(res.data));

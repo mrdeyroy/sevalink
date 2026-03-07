@@ -52,11 +52,11 @@ const AdminAnalytics = () => {
         const startTime = Date.now();
         try {
             const results = await Promise.allSettled([
-                axios.get("http://localhost:5000/api/admin/analytics/overview", config),
-                axios.get("http://localhost:5000/api/admin/analytics/hotspots", config),
-                axios.get("http://localhost:5000/api/admin/analytics/worker-performance", config),
-                axios.get("http://localhost:5000/api/admin/analytics/categories", config),
-                axios.get("http://localhost:5000/api/admin/analytics/engagement", config)
+                axios.get("https://server-gray-three-90.vercel.app/api/admin/analytics/overview", config),
+                axios.get("https://server-gray-three-90.vercel.app/api/admin/analytics/hotspots", config),
+                axios.get("https://server-gray-three-90.vercel.app/api/admin/analytics/worker-performance", config),
+                axios.get("https://server-gray-three-90.vercel.app/api/admin/analytics/categories", config),
+                axios.get("https://server-gray-three-90.vercel.app/api/admin/analytics/engagement", config)
             ]);
 
             const [overviewRes, hotspotsRes, workerRes, categoryRes, engagementRes] = results;

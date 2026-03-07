@@ -39,7 +39,7 @@ const WorkerDashboard = () => {
         setLoading(true);
         const startTime = Date.now();
         try {
-            const { data } = await axios.get("http://localhost:5000/api/requests", config);
+            const { data } = await axios.get("https://server-gray-three-90.vercel.app/api/requests", config);
             setTasks(data);
         } catch (error) {
             console.error("Error fetching tasks:", error);
@@ -56,7 +56,7 @@ const WorkerDashboard = () => {
 
     const fetchAnnouncements = async () => {
         try {
-            const { data } = await axios.get("http://localhost:5000/api/announcements", config);
+            const { data } = await axios.get("https://server-gray-three-90.vercel.app/api/announcements", config);
             setAnnouncements(data);
         } catch (err) {
             console.error("Failed to load announcements:", err);
@@ -66,7 +66,7 @@ const WorkerDashboard = () => {
     const updateStatus = async (id, status) => {
         setUpdatingId(id);
         try {
-            await axios.put(`http://localhost:5000/api/requests/${id}/status`, { status }, config);
+            await axios.put(`https://server-gray-three-90.vercel.app/api/requests/${id}/status`, { status }, config);
             setTasks(tasks.map(t => t._id === id ? { ...t, status } : t));
             if (selectedRequest && selectedRequest._id === id) {
                 setSelectedRequest({ ...selectedRequest, status });
@@ -94,7 +94,7 @@ const WorkerDashboard = () => {
             formData.append("status", "Resolved");
 
             await axios.put(
-                `http://localhost:5000/api/requests/${proofTask._id}/status`,
+                `https://server-gray-three-90.vercel.app/api/requests/${proofTask._id}/status`,
                 formData,
                 {
                     headers: {
@@ -261,7 +261,7 @@ const WorkerDashboard = () => {
                                             {/* Citizen Issue Photo */}
                                             <div className="rounded-xl overflow-hidden h-36 bg-gray-100 mb-1 relative group border border-gray-100">
                                                 <img
-                                                    src={(!task.imageUrl || task.imageUrl.startsWith("http")) ? "/citizen_issue.png" : `http://localhost:5000${task.imageUrl}`}
+                                                    src={(!task.imageUrl || task.imageUrl.startsWith("http")) ? "/citizen_issue.png" : `https://server-gray-three-90.vercel.app${task.imageUrl}`}
                                                     alt="Reported issue"
                                                     className="w-full h-full object-cover"
                                                     onError={(e) => { e.currentTarget.src = "/citizen_issue.png"; }}

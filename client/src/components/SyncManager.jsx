@@ -36,7 +36,7 @@ const SyncManager = ({ onSyncComplete }) => {
                                 },
                             };
 
-                            await axios.post("http://localhost:5000/api/requests", formData, config);
+                            await axios.post("https://server-gray-three-90.vercel.app/api/requests", formData, config);
                             await deleteOfflineRequest(req.id);
                             syncedCount++;
                         } catch (error) {
