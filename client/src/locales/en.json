@@ -1,0 +1,138 @@
+{
+    "nav": {
+        "home": "Home",
+        "how_it_works": "How It Works",
+        "services": "Services",
+        "login": "Login",
+        "register": "Register",
+        "dashboard": "Dashboard",
+        "profile": "Profile Settings",
+        "signout": "Sign out"
+    },
+    "hero": {
+        "title": "Connecting Villages to Essential Services",
+        "subtitle": "Report infrastructure issues, track progress, and improve rural communities with transparent governance.",
+        "primary_cta": "Report an Issue",
+        "secondary_cta": "Explore How It Works",
+        "dashboard_cta": "Go to Dashboard"
+    },
+    "impact": {
+        "section_title": "Trusted by Communities",
+        "active_citizens": "Active Citizens",
+        "issues_resolved": "Issues Resolved",
+        "villages_connected": "Villages Connected",
+        "avg_resolution": "Avg Resolution Time",
+        "citizens_count": "2,500+",
+        "resolved_count": "1,200+",
+        "villages_count": "45",
+        "resolution_time": "36h"
+    },
+    "how": {
+        "section_title": "How It Works",
+        "section_subtitle": "A simple four-step process to resolve community issues.",
+        "step1": {
+            "title": "Citizen Reports Issue",
+            "desc": "Log in and describe the problem. Upload photos and pin the exact location."
+        },
+        "step2": {
+            "title": "Admin Assigns Worker",
+            "desc": "Local authorities review the report and assign the right worker."
+        },
+        "step3": {
+            "title": "Worker Fixes Issue",
+            "desc": "The assigned worker visits the site, resolves the issue, and uploads proof."
+        },
+        "step4": {
+            "title": "Citizen Confirms",
+            "desc": "The citizen reviews the resolution and confirms the issue is fixed."
+        }
+    },
+    "categories": {
+        "section_title": "Service Categories",
+        "section_subtitle": "Covering the essential infrastructure services that matter most.",
+        "water": {
+            "title": "Water Supply",
+            "desc": "Report leaks, contamination, or disruptions in water supply to your village."
+        },
+        "electricity": {
+            "title": "Electricity",
+            "desc": "Flag power outages, faulty wiring, or transformer issues in your area."
+        },
+        "health": {
+            "title": "Health",
+            "desc": "Request health camp visits, report sanitation issues, or medical emergencies."
+        },
+        "roads": {
+            "title": "Roads",
+            "desc": "Report potholes, damaged bridges, or waterlogged roads needing repair."
+        },
+        "documents": {
+            "title": "Documents",
+            "desc": "Request certificates, permits, or other official document assistance."
+        }
+    },
+    "features": {
+        "section_title": "Product Features",
+        "section_subtitle": "Built for real-world rural challenges.",
+        "offline": {
+            "title": "Offline Reporting",
+            "desc": "Submit requests even without internet. Data syncs automatically when connectivity returns."
+        },
+        "map_tracking": {
+            "title": "Map-based Tracking",
+            "desc": "Pinpoint exact issue locations on an interactive map for faster resolution."
+        },
+        "realtime_updates": {
+            "title": "Real-time Updates",
+            "desc": "Track the status of every request in real time from submission to resolution."
+        },
+        "photo_evidence": {
+            "title": "Photo Evidence",
+            "desc": "Attach photos to clearly show the problem and verify resolution quality."
+        },
+        "transparent_governance": {
+            "title": "Transparent Governance",
+            "desc": "Every action is logged and visible, fostering trust between citizens and authorities."
+        },
+        "citizen_feedback": {
+            "title": "Citizen Feedback",
+            "desc": "Rate resolutions and share feedback to continuously improve service delivery."
+        }
+    },
+    "government": {
+        "title": "For Gram Panchayat & Local Authorities",
+        "subtitle": "Empower your governance with data and transparency.",
+        "point1": "Monitor complaints in real time",
+        "point2": "Track worker performance and accountability",
+        "point3": "Identify infrastructure hotspots with heatmaps",
+        "point4": "Improve transparency in governance processes"
+    },
+    "analytics": {
+        "title": "Data-driven Rural Governance",
+        "desc": "Track complaint trends, worker performance, and infrastructure issues through powerful analytics dashboards.",
+        "highlight1": "Complaint Trends",
+        "highlight2": "Worker Performance",
+        "highlight3": "Infrastructure Hotspots"
+    },
+    "cta": {
+        "title": "Ready to improve your community?",
+        "subtitle": "Join thousands of citizens and local authorities working together for better rural infrastructure.",
+        "report_issue": "Report an Issue",
+        "create_account": "Create Free Account"
+    },
+    "footer": {
+        "tagline": "Empowering rural communities through transparent technology.",
+        "product": "Product",
+        "features": "Features",
+        "how_it_works": "How It Works",
+        "services": "Services",
+        "company": "Company",
+        "about": "About",
+        "contact": "Contact",
+        "privacy": "Privacy Policy",
+        "contact_title": "Contact",
+        "email": "support@sevalink.com",
+        "phone": "+91 123 456 7890",
+        "copyright": "© {{year}} SevaLink. All rights reserved."
+    }
+}
