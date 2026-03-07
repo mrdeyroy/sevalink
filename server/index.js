@@ -1,7 +1,9 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import passport from "passport";
@@ -12,8 +14,6 @@ import authRoutes from "./routes/auth.js";
 import requestRoutes from "./routes/request.js";
 import adminRoutes from "./routes/admin.js";
 import announcementRoutes from "./routes/announcement.js";
-
-dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -49,10 +49,14 @@ app.get("/", (req, res) => {
 });
 
 // Database Connection
-mongoose
-    .connect(process.env.MONGO_URI)
-    .then(() => console.log("MongoDB Connected"))
-    .catch((err) => console.log(err));
+if (process.env.MONGO_URI) {
+    mongoose
+        .connect(process.env.MONGO_URI)
+        .then(() => console.log("MongoDB Connected"))
+        .catch((err) => console.error("MongoDB Connection Error:", err));
+} else {
+    console.warn("CRITICAL: MONGO_URI is not defined. Database features will fail.");
+}
 
 // Error Handler Middleware
 app.use((err, req, res, next) => {
