@@ -258,7 +258,7 @@ const RequestForm = ({ onRequestAdded }) => {
                     Authorization: `Bearer ${user.token}`,
                 },
             };
-            const { data } = await axios.post("https://server-gray-three-90.vercel.app/api/requests", formData, config);
+            const { data } = await axios.post("https://sevalink-zygf.vercel.app/api/requests", formData, config);
             setSuccessMsg("Request submitted successfully!");
             setSuccessId(data._id);
             toast.success("Request submitted successfully! 🎉");

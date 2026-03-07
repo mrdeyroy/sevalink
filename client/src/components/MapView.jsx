@@ -72,7 +72,7 @@ const MapView = ({ requests, heatPoints, zoom = 5 }) => {
                                         {request.status}
                                     </span>
                                     <img
-                                        src={(!request.imageUrl || request.imageUrl.startsWith("http")) ? "/citizen_issue.png" : `https://server-gray-three-90.vercel.app${request.imageUrl}`}
+                                        src={(!request.imageUrl || request.imageUrl.startsWith("http")) ? "/citizen_issue.png" : `https://sevalink-zygf.vercel.app${request.imageUrl}`}
                                         alt="Preview"
                                         className="w-full h-20 object-cover mt-2 rounded"
                                         onError={(e) => { e.currentTarget.src = "/citizen_issue.png"; }}

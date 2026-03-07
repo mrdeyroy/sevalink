@@ -34,7 +34,7 @@ const ForgotPassword = () => {
         setError("");
         setLoading(true);
         try {
-            await axios.post("https://server-gray-three-90.vercel.app/api/auth/forgot-password", { identifier });
+            await axios.post("https://sevalink-zygf.vercel.app/api/auth/forgot-password", { identifier });
             setStep(2);
             setTimeLeft(300); // 5 minutes
             setSuccess("OTP sent! Check your email or SMS.");
@@ -62,7 +62,7 @@ const ForgotPassword = () => {
         }
         setLoading(true);
         try {
-            await axios.post("https://server-gray-three-90.vercel.app/api/auth/verify-otp-reset", {
+            await axios.post("https://sevalink-zygf.vercel.app/api/auth/verify-otp-reset", {
                 identifier,
                 otp,
                 newPassword,
