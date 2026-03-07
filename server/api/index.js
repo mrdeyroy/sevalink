@@ -33,12 +33,7 @@ app.use("/api/announcements", announcementRoutes);
 app.use("/api/health", healthRoutes);
 
 app.get("/", (req, res) => {
-    const apiKey = process.env.FAST2SMS_API_KEY;
-    if (apiKey && apiKey !== "YOUR_KEY_HERE") {
-        res.send("api key working");
-    } else {
-        res.send("SevaLink API is running, but FAST2SMS_API_KEY is not configured.");
-    }
+    res.send("SevaLink API is running...");
 });
 
 // Deployment Console Logs
