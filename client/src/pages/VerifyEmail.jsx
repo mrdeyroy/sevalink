@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import AuthLayout from "../components/AuthLayout";
+import API_BASE_URL from "../config/api";
 
 const VerifyEmail = () => {
     const { email } = useParams();
@@ -31,7 +32,7 @@ const VerifyEmail = () => {
         setMessage("");
 
         try {
-            const { data } = await axios.post("https://server-gray-three-90.vercel.app/api/auth/verify", {
+            const { data } = await axios.post(`${API_BASE_URL}/api/auth/verify`, {
                 email,
                 otp
             });
@@ -57,7 +58,7 @@ const VerifyEmail = () => {
         setMessage("");
 
         try {
-            await axios.post("https://server-gray-three-90.vercel.app/api/auth/resend-otp", { email });
+            await axios.post(`${API_BASE_URL}/api/auth/resend-otp`, { email });
             setMessage("A new OTP has been sent to your email.");
             setTimer(30);
         } catch (err) {

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { X, MapPin, Calendar, User, Image as ImageIcon, Star, FileText, Activity, CheckCircle, Truck, CircleDot } from "lucide-react";
 import MapView from "./MapView";
+import API_BASE_URL from "../config/api";
 
-const BASE_URL = "https://server-gray-three-90.vercel.app";
+const BASE_URL = `${API_BASE_URL}`;
 
 const resolveImageUrl = (src, isCitizen = true) => {
     if (!src || src.startsWith("http")) return isCitizen ? "/citizen_issue.png" : "/worker_resolve.jpg";

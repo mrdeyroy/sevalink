@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 
 const AcceptInvite = () => {
     const { token } = useParams();
@@ -25,7 +26,7 @@ const AcceptInvite = () => {
 
         setLoading(true);
         try {
-            const res = await axios.post(`https://server-gray-three-90.vercel.app/api/auth/accept-invite/${token}`, { password });
+            const res = await axios.post(`${API_BASE_URL}/api/auth/accept-invite/${token}`, { password });
 
             // On success, we set token in local storage and redirect to worker dashboard
             localStorage.setItem("user", JSON.stringify(res.data));

@@ -1,4 +1,5 @@
 import { MapPin, Clock, CheckCircle, AlertCircle, User } from "lucide-react";
+import API_BASE_URL from "../config/api";
 
 const RequestList = ({ requests }) => {
     const getStatusColor = (status) => {
@@ -31,7 +32,7 @@ const RequestList = ({ requests }) => {
                 <div key={request._id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
                     {request.imageUrl && (
                         <img
-                            src={`https://server-gray-three-90.vercel.app${request.imageUrl}`}
+                            src={`${API_BASE_URL}${request.imageUrl}`}
                             alt={request.title}
                             className="w-full h-48 object-cover"
                         />
