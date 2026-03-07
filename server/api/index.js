@@ -37,9 +37,21 @@ Middleware
 
 app.use(express.json());
 
+// Explicitly handle preflight OPTIONS for all routes
+app.options('*', cors({
+    origin: function (origin, callback) {
+        callback(null, true);
+    },
+    credentials: true
+}));
+
 app.use(
     cors({
-        origin: allowedOrigins,
+        origin: function (origin, callback) {
+            // Allow requests with no origin (like mobile apps or curl requests)
+            if (!origin) return callback(null, true);
+            return callback(null, true); // For development, allow all origins
+        },
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
     })
