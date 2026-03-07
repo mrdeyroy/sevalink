@@ -7,17 +7,12 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import passport from "passport";
-import path from "path";
-import { fileURLToPath } from "url";
 import "../config/passport.js";
 import authRoutes from "../routes/auth.js";
 import requestRoutes from "../routes/request.js";
 import adminRoutes from "../routes/admin.js";
 import announcementRoutes from "../routes/announcement.js";
 import healthRoutes from "../routes/health.js";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -29,9 +24,6 @@ app.use(helmet({
 }));
 app.use(morgan("common"));
 app.use(passport.initialize());
-
-// Serve static files
-app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 // Routes
 app.use("/api/auth", authRoutes);
