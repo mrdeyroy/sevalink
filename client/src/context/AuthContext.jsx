@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
                             Authorization: `Bearer ${token}`,
                         },
                     };
-                    const { data } = await axios.get("https://sevalink-zygf.vercel.app/api/auth/me", config);
+                    const { data } = await axios.get("https://server-gray-three-90.vercel.app/api/auth/me", config);
                     setUser({ ...data, token });
                 } catch (error) {
                     console.error("Auth check failed:", error);
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = async (identifier, password) => {
-        const { data } = await axios.post("https://sevalink-zygf.vercel.app/api/auth/login", {
+        const { data } = await axios.post("https://server-gray-three-90.vercel.app/api/auth/login", {
             identifier,
             password,
         });
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
 
     // Worker login using mobile number + password
     const workerLogin = async (mobile, password) => {
-        const { data } = await axios.post("https://sevalink-zygf.vercel.app/api/auth/worker-login", {
+        const { data } = await axios.post("https://server-gray-three-90.vercel.app/api/auth/worker-login", {
             mobile,
             password,
         });
@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const register = async (name, email, mobile, password) => {
-        const { data } = await axios.post("https://sevalink-zygf.vercel.app/api/auth/register", {
+        const { data } = await axios.post("https://server-gray-three-90.vercel.app/api/auth/register", {
             name,
             email,
             mobile,
@@ -78,19 +78,19 @@ export const AuthProvider = ({ children }) => {
     };
 
     const sendMobileOTP = async (mobile) => {
-        const { data } = await axios.post("https://sevalink-zygf.vercel.app/api/auth/send-mobile-otp", { mobile });
+        const { data } = await axios.post("https://server-gray-three-90.vercel.app/api/auth/send-mobile-otp", { mobile });
         return data;
     };
 
     const verifyMobileOTP = async (mobile, otp) => {
-        const { data } = await axios.post("https://sevalink-zygf.vercel.app/api/auth/verify-mobile-otp", { mobile, otp });
+        const { data } = await axios.post("https://server-gray-three-90.vercel.app/api/auth/verify-mobile-otp", { mobile, otp });
         return data;
     };
 
     const changePassword = async (currentPassword, newPassword) => {
         const token = localStorage.getItem("token");
         const { data } = await axios.post(
-            "https://sevalink-zygf.vercel.app/api/auth/change-password",
+            "https://server-gray-three-90.vercel.app/api/auth/change-password",
             { currentPassword, newPassword },
             { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -100,7 +100,7 @@ export const AuthProvider = ({ children }) => {
     const updateProfile = async (formData) => {
         const token = localStorage.getItem("token");
         const { data } = await axios.put(
-            "https://sevalink-zygf.vercel.app/api/auth/profile",
+            "https://server-gray-three-90.vercel.app/api/auth/profile",
             formData,
             { headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" } }
         );
@@ -118,7 +118,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("token", token);
         try {
             const config = { headers: { Authorization: `Bearer ${token}` } };
-            const { data } = await axios.get("https://sevalink-zygf.vercel.app/api/auth/me", config);
+            const { data } = await axios.get("https://server-gray-three-90.vercel.app/api/auth/me", config);
             setUser({ ...data, token });
         } catch (error) {
             console.error("Google login sequence failed:", error);

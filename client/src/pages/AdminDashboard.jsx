@@ -87,14 +87,14 @@ const AdminDashboard = () => {
         try {
             console.log("Fetching Admin Data...");
             const results = await Promise.allSettled([
-                axios.get("https://sevalink-zygf.vercel.app/api/admin/stats", config),
-                axios.get("https://sevalink-zygf.vercel.app/api/requests", config),
-                axios.get("https://sevalink-zygf.vercel.app/api/admin/workers", config),
-                axios.get("https://sevalink-zygf.vercel.app/api/admin/users", config),
-                axios.get("https://sevalink-zygf.vercel.app/api/announcements", config),
-                axios.get("https://sevalink-zygf.vercel.app/api/admin/analytics/resolution-time", config),
-                axios.get("https://sevalink-zygf.vercel.app/api/admin/analytics/worker-performance", config),
-                axios.get("https://sevalink-zygf.vercel.app/api/admin/analytics/area-insights", config)
+                axios.get("https://server-gray-three-90.vercel.app/api/admin/stats", config),
+                axios.get("https://server-gray-three-90.vercel.app/api/requests", config),
+                axios.get("https://server-gray-three-90.vercel.app/api/admin/workers", config),
+                axios.get("https://server-gray-three-90.vercel.app/api/admin/users", config),
+                axios.get("https://server-gray-three-90.vercel.app/api/announcements", config),
+                axios.get("https://server-gray-three-90.vercel.app/api/admin/analytics/resolution-time", config),
+                axios.get("https://server-gray-three-90.vercel.app/api/admin/analytics/worker-performance", config),
+                axios.get("https://server-gray-three-90.vercel.app/api/admin/analytics/area-insights", config)
             ]);
 
             const [statsResult, requestsResult, workersResult, usersResult, annResult, resAnalyticsResult, perfResult, areaResult] = results;
@@ -135,7 +135,7 @@ const AdminDashboard = () => {
         try {
             console.log("Sending assignment request for:", selectedRequest._id, "Worker:", workerId);
             await axios.put(
-                `https://sevalink-zygf.vercel.app/api/requests/${selectedRequest._id}/assign`,
+                `https://server-gray-three-90.vercel.app/api/requests/${selectedRequest._id}/assign`,
                 { workerId },
                 config
             );
@@ -151,7 +151,7 @@ const AdminDashboard = () => {
     const handleStatusUpdate = async (id, newStatus) => {
         try {
             await axios.put(
-                `https://sevalink-zygf.vercel.app/api/requests/${id}/status`,
+                `https://server-gray-three-90.vercel.app/api/requests/${id}/status`,
                 { status: newStatus },
                 config
             );
@@ -166,7 +166,7 @@ const AdminDashboard = () => {
     const handlePriorityUpdate = async (id, newPriority) => {
         try {
             await axios.put(
-                `https://sevalink-zygf.vercel.app/api/requests/${id}/status`,
+                `https://server-gray-three-90.vercel.app/api/requests/${id}/status`,
                 { priority: newPriority },
                 config
             );
@@ -186,7 +186,7 @@ const AdminDashboard = () => {
     const handleCreateWorker = async (name, mobile, password) => {
         try {
             const res = await axios.post(
-                "https://sevalink-zygf.vercel.app/api/admin/create-worker",
+                "https://server-gray-three-90.vercel.app/api/admin/create-worker",
                 { name, mobile, password },
                 config
             );
@@ -202,7 +202,7 @@ const AdminDashboard = () => {
 
     const handleSuspendWorker = async (id) => {
         try {
-            await axios.patch(`https://sevalink-zygf.vercel.app/api/admin/suspend-user/${id}`, {}, config);
+            await axios.patch(`https://server-gray-three-90.vercel.app/api/admin/suspend-user/${id}`, {}, config);
             fetchData();
         } catch (error) {
             console.error("Suspend toggle failed", error);
@@ -212,7 +212,7 @@ const AdminDashboard = () => {
     const handleDeleteWorker = async () => {
         if (!workerToDelete) return;
         try {
-            await axios.delete(`https://sevalink-zygf.vercel.app/api/admin/workers/${workerToDelete._id}`, config);
+            await axios.delete(`https://server-gray-three-90.vercel.app/api/admin/workers/${workerToDelete._id}`, config);
             setWorkerToDelete(null);
             fetchData();
         } catch (error) {
@@ -222,7 +222,7 @@ const AdminDashboard = () => {
 
     const handleBanUser = async (id) => {
         try {
-            await axios.patch(`https://sevalink-zygf.vercel.app/api/admin/ban-user/${id}`, {}, config);
+            await axios.patch(`https://server-gray-three-90.vercel.app/api/admin/ban-user/${id}`, {}, config);
             fetchData();
         } catch (error) {
             console.error("Ban toggle failed", error);
@@ -232,7 +232,7 @@ const AdminDashboard = () => {
     const handleDeleteUser = async () => {
         if (!userToDelete) return;
         try {
-            await axios.delete(`https://sevalink-zygf.vercel.app/api/admin/users/${userToDelete._id}`, config);
+            await axios.delete(`https://server-gray-three-90.vercel.app/api/admin/users/${userToDelete._id}`, config);
             setUserToDelete(null);
             fetchData();
         } catch (error) {
@@ -245,7 +245,7 @@ const AdminDashboard = () => {
         if (!annTitle.trim() || !annMessage.trim()) return;
         setAnnLoading(true);
         try {
-            await axios.post("https://sevalink-zygf.vercel.app/api/announcements", { title: annTitle, message: annMessage }, config);
+            await axios.post("https://server-gray-three-90.vercel.app/api/announcements", { title: annTitle, message: annMessage }, config);
             setAnnTitle("");
             setAnnMessage("");
             fetchData();
@@ -258,7 +258,7 @@ const AdminDashboard = () => {
 
     const handleDeleteAnnouncement = async (id) => {
         try {
-            await axios.delete(`https://sevalink-zygf.vercel.app/api/announcements/${id}`, config);
+            await axios.delete(`https://server-gray-three-90.vercel.app/api/announcements/${id}`, config);
             fetchData();
         } catch (err) {
             alert(`Failed to delete announcement.`);

@@ -34,7 +34,7 @@ const Dashboard = () => {
         setLoading(true);
         const startTime = Date.now();
         try {
-            const { data } = await axios.get("https://sevalink-zygf.vercel.app/api/requests", config);
+            const { data } = await axios.get("https://server-gray-three-90.vercel.app/api/requests", config);
             setRequests(data);
         } catch (error) {
             console.error("Error fetching requests:", error);
@@ -50,7 +50,7 @@ const Dashboard = () => {
 
     const fetchAnnouncements = async () => {
         try {
-            const { data } = await axios.get("https://sevalink-zygf.vercel.app/api/announcements", config);
+            const { data } = await axios.get("https://server-gray-three-90.vercel.app/api/announcements", config);
             setAnnouncements(data);
         } catch (err) {
             console.error("Failed to load announcements:", err);
@@ -66,7 +66,7 @@ const Dashboard = () => {
         setReviewLoading(true);
         try {
             await axios.post(
-                `https://sevalink-zygf.vercel.app/api/requests/${selectedRequest._id}/review`,
+                `https://server-gray-three-90.vercel.app/api/requests/${selectedRequest._id}/review`,
                 { rating, reviewText: review },
                 config
             );
@@ -260,10 +260,10 @@ const Dashboard = () => {
                                             <ImageIcon size={14} /> Reported Photo
                                         </h4>
                                         <img
-                                            src={(!detailsRequest.imageUrl || detailsRequest.imageUrl.startsWith("http")) ? "/citizen_issue.png" : `https://sevalink-zygf.vercel.app${detailsRequest.imageUrl}`}
+                                            src={(!detailsRequest.imageUrl || detailsRequest.imageUrl.startsWith("http")) ? "/citizen_issue.png" : `https://server-gray-three-90.vercel.app${detailsRequest.imageUrl}`}
                                             alt="Issue"
                                             className="w-full h-48 object-cover rounded-xl border border-gray-200 cursor-pointer hover:opacity-90 transition-opacity"
-                                            onClick={() => setImageModal((!detailsRequest.imageUrl || detailsRequest.imageUrl.startsWith("http")) ? "/citizen_issue.png" : `https://sevalink-zygf.vercel.app${detailsRequest.imageUrl}`)}
+                                            onClick={() => setImageModal((!detailsRequest.imageUrl || detailsRequest.imageUrl.startsWith("http")) ? "/citizen_issue.png" : `https://server-gray-three-90.vercel.app${detailsRequest.imageUrl}`)}
                                             onError={(e) => { e.currentTarget.src = "/citizen_issue.png"; }}
                                         />
                                     </div>
@@ -275,10 +275,10 @@ const Dashboard = () => {
                                                 <CheckCircle size={14} className="text-green-500" /> Proof of Completion
                                             </h4>
                                             <img
-                                                src={(!detailsRequest.proofImage || detailsRequest.proofImage.startsWith("http")) ? "/worker_resolve.jpg" : `https://sevalink-zygf.vercel.app${detailsRequest.proofImage}`}
+                                                src={(!detailsRequest.proofImage || detailsRequest.proofImage.startsWith("http")) ? "/worker_resolve.jpg" : `https://server-gray-three-90.vercel.app${detailsRequest.proofImage}`}
                                                 alt="Proof"
                                                 className="w-full h-40 object-cover rounded-xl border border-gray-200 cursor-pointer hover:opacity-90 transition-opacity"
-                                                onClick={() => setImageModal((!detailsRequest.proofImage || detailsRequest.proofImage.startsWith("http")) ? "/worker_resolve.jpg" : `https://sevalink-zygf.vercel.app${detailsRequest.proofImage}`)}
+                                                onClick={() => setImageModal((!detailsRequest.proofImage || detailsRequest.proofImage.startsWith("http")) ? "/worker_resolve.jpg" : `https://server-gray-three-90.vercel.app${detailsRequest.proofImage}`)}
                                                 onError={(e) => { e.currentTarget.src = "/worker_resolve.jpg"; }}
                                             />
                                         </div>

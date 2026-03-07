@@ -31,7 +31,7 @@ const VerifyEmail = () => {
         setMessage("");
 
         try {
-            const { data } = await axios.post("https://sevalink-zygf.vercel.app/api/auth/verify", {
+            const { data } = await axios.post("https://server-gray-three-90.vercel.app/api/auth/verify", {
                 email,
                 otp
             });
@@ -57,7 +57,7 @@ const VerifyEmail = () => {
         setMessage("");
 
         try {
-            await axios.post("https://sevalink-zygf.vercel.app/api/auth/resend-otp", { email });
+            await axios.post("https://server-gray-three-90.vercel.app/api/auth/resend-otp", { email });
             setMessage("A new OTP has been sent to your email.");
             setTimer(30);
         } catch (err) {
