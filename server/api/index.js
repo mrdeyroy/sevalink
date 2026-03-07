@@ -33,7 +33,23 @@ app.use("/api/announcements", announcementRoutes);
 app.use("/api/health", healthRoutes);
 
 app.get("/", (req, res) => {
-    res.send("SevaLink API is running...");
+    const database = mongoose.connection.readyState === 1 ? "connected" : "disconnected";
+
+    const jwt = process.env.JWT_SECRET ? "configured" : "missing";
+    const googleAuth = process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET ? "configured" : "missing";
+    const emailService = process.env.EMAIL_USER && process.env.EMAIL_PASS ? "configured" : "missing";
+    const smsService = process.env.FAST2SMS_API_KEY ? "configured" : "missing";
+
+    res.json({
+        "message": "SevaLink API is working properly",
+        "server": "running",
+        "database": database,
+        "jwt": jwt,
+        "googleAuth": googleAuth,
+        "emailService": emailService,
+        "smsService": smsService,
+        "timestamp": new Date().toISOString()
+    });
 });
 
 // Deployment Console Logs
