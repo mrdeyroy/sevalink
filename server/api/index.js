@@ -7,6 +7,7 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import passport from "passport";
+
 import "../config/passport.js";
 import authRoutes from "../routes/auth.js";
 import requestRoutes from "../routes/request.js";
@@ -16,95 +17,121 @@ import healthRoutes from "../routes/health.js";
 
 const app = express();
 
-// Middleware
+/*
+================================
+Allowed Origins
+================================
+*/
+
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://sevalink.vercel.app",
+    process.env.CLIENT_URL
+].filter(Boolean);
+
+/*
+================================
+Middleware
+================================
+*/
+
 app.use(express.json());
+
 app.use(
     cors({
-        origin: [
-            "http://localhost:5173",
-            "https://sevalink.vercel.app"
-        ],
+        origin: allowedOrigins,
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
     })
 );
-app.use(helmet({
-    crossOriginResourcePolicy: false,
-}));
+
+app.use(
+    helmet({
+        crossOriginResourcePolicy: false
+    })
+);
+
 app.use(morgan("common"));
 app.use(passport.initialize());
 
-app.options("*", cors());
+/*
+================================
+Routes
+================================
+*/
 
-// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/requests", requestRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/announcements", announcementRoutes);
 app.use("/api/health", healthRoutes);
 
+/*
+================================
+Root Endpoint
+================================
+*/
+
 app.get("/", (req, res) => {
     const database = mongoose.connection.readyState === 1 ? "connected" : "disconnected";
 
-    const jwt = process.env.JWT_SECRET ? "configured" : "missing";
-    const googleAuth = process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET ? "configured" : "missing";
-    const emailService = process.env.EMAIL_USER && process.env.EMAIL_PASS ? "configured" : "missing";
-    const smsService = process.env.FAST2SMS_API_KEY ? "configured" : "missing";
-
     res.json({
-        "message": "SevaLink API is working properly",
-        "server": "running",
-        "database": database,
-        "jwt": jwt,
-        "googleAuth": googleAuth,
-        "emailService": emailService,
-        "smsService": smsService,
-        "timestamp": new Date().toISOString()
+        message: "SevaLink API is working properly",
+        server: "running",
+        database,
+        services: {
+            jwt: process.env.JWT_SECRET ? "configured" : "missing",
+            googleAuth:
+                process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+                    ? "configured"
+                    : "missing",
+            emailService:
+                process.env.EMAIL_USER && process.env.EMAIL_PASS
+                    ? "configured"
+                    : "missing",
+            smsService: process.env.FAST2SMS_API_KEY ? "configured" : "missing"
+        },
+        timestamp: new Date().toISOString()
     });
 });
 
-// Deployment Console Logs
-console.log("🚀 SevaLink API deployed successfully");
-if (!process.env.MONGO_URI || !process.env.JWT_SECRET || !process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET || !process.env.EMAIL_USER || !process.env.EMAIL_PASS || !process.env.FAST2SMS_API_KEY || !process.env.CLIENT_URL) {
-    const missingEnvs = [];
-    const requiredEnvs = ['MONGO_URI', 'JWT_SECRET', 'GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET', 'EMAIL_USER', 'EMAIL_PASS', 'FAST2SMS_API_KEY', 'CLIENT_URL'];
-    requiredEnvs.forEach(env => {
-        if (!process.env[env]) missingEnvs.push(env);
-    });
-    console.log("❌ Missing Environment Variables:", missingEnvs.join(', '));
-}
+/*
+================================
+Startup Logs
+================================
+*/
 
-// Database Connection
-if (process.env.MONGO_URI) {
+console.log("🚀 SevaLink API deployed");
+
+/*
+================================
+MongoDB Connection
+================================
+*/
+
+if (!mongoose.connection.readyState) {
     mongoose
         .connect(process.env.MONGO_URI)
         .then(() => {
             console.log("✅ MongoDB Connected");
-            if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
-                console.log("✅ Google OAuth Configured");
-            }
-            if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-                console.log("✅ Email Service Ready");
-            }
-            if (process.env.FAST2SMS_API_KEY) {
-                console.log("✅ SMS Service Ready");
-            }
-            console.log("🌐 Health Check Endpoint: /api/health");
         })
         .catch((err) => {
-            console.log("❌ MongoDB Connection Failed");
-            console.error("MongoDB Connection Error:", err);
+            console.error("❌ MongoDB Connection Failed:", err.message);
         });
-} else {
-    console.warn("CRITICAL: MONGO_URI is not defined. Database features will fail.");
 }
 
-// Error Handler Middleware
+/*
+================================
+Global Error Handler
+================================
+*/
+
 app.use((err, req, res, next) => {
-    console.error("GLOBAL ERROR:", err.stack || err);
+    console.error("GLOBAL ERROR:", err);
+
     res.status(err.status || 500).json({
-        message: typeof err === 'string' ? err : (err.message || "Internal Server Error"),
-        error: process.env.NODE_ENV === "development" ? (typeof err === 'string' ? { message: err } : err) : {}
+        message: err.message || "Internal Server Error",
+        error: process.env.NODE_ENV === "development" ? err : {}
     });
 });
 
