@@ -40,7 +40,12 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/announcements", announcementRoutes);
 
 app.get("/", (req, res) => {
-    res.send("SevaLink API is running...");
+    const apiKey = process.env.FAST2SMS_API_KEY;
+    if (apiKey && apiKey !== "YOUR_KEY_HERE") {
+        res.send("api key working");
+    } else {
+        res.send("SevaLink API is running, but FAST2SMS_API_KEY is not configured.");
+    }
 });
 
 // Database Connection
@@ -58,6 +63,10 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== "production") {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}
+
+export default app;
