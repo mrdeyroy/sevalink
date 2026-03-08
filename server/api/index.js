@@ -7,6 +7,7 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import passport from "passport";
+import path from "path";
 
 import "../config/passport.js";
 import authRoutes from "../routes/auth.js";
@@ -37,6 +38,9 @@ Middleware
 
 app.use(express.json());
 
+// Serve uploaded images
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+
 // Explicitly handle preflight OPTIONS for all routes
 app.options('*', cors({
     origin: function (origin, callback) {
@@ -48,9 +52,8 @@ app.options('*', cors({
 app.use(
     cors({
         origin: function (origin, callback) {
-            // Allow requests with no origin (like mobile apps or curl requests)
             if (!origin) return callback(null, true);
-            return callback(null, true); // For development, allow all origins
+            return callback(null, true);
         },
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
