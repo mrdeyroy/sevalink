@@ -25,7 +25,7 @@ Allowed Origins
 
 const allowedOrigins = [
     "http://localhost:5173",
-    "https://sevalink.vercel.app",
+    "https://sevalink-frontend.onrender.com",
     process.env.CLIENT_URL
 ].filter(Boolean);
 
