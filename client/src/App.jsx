@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
 import { AuthProvider } from "./context/AuthContext";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -18,14 +19,42 @@ import SyncManager from "./components/SyncManager";
 import ForgotPassword from "./pages/ForgotPassword";
 import { Toaster } from "react-hot-toast";
 
-
 function App() {
+
+  // Handle Google OAuth redirect token
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+
+    if (token) {
+      localStorage.setItem("token", token);
+
+      // remove token from URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+
+      // reload so AuthContext re-checks the user
+      window.location.reload();
+    }
+  }, []);
+
   return (
     <AuthProvider>
-      <Toaster position="top-right" toastOptions={{ duration: 4000, style: { borderRadius: '12px', padding: '14px 18px', fontSize: '14px' } }} />
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            borderRadius: "12px",
+            padding: "14px 18px",
+            fontSize: "14px",
+          },
+        }}
+      />
+
       <Router>
         <OfflineIndicator />
         <SyncManager onSyncComplete={() => window.location.reload()} />
+
         <Routes>
           {/* Public routes */}
           <Route path="/" element={<Home />} />
@@ -76,7 +105,7 @@ function App() {
             }
           />
 
-          {/* Protected: Worker (first-login password change) */}
+          {/* Worker password change */}
           <Route
             path="/change-password"
             element={
@@ -86,7 +115,7 @@ function App() {
             }
           />
 
-          {/* Protected: All users – Profile Settings */}
+          {/* Profile */}
           <Route
             path="/profile"
             element={
