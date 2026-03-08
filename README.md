@@ -259,7 +259,7 @@ Make sure you have:
 Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/sevalink.git
+git clone https://github.com/mrdeyroy/sevalink.git 
 
 cd sevalink
 ```
