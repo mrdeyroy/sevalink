@@ -18,7 +18,7 @@ export const updateProfile = async (req, res) => {
         }
 
         if (req.body.removeAvatar === "true") {
-            user.avatar = "";
+            user.avatar = user.email ? getGravatarUrl(user.email) : "";
         } else if (req.file) {
             user.avatar = `https://sevalink-backend-76zq.onrender.com/uploads/${req.file.filename}`;
         }
@@ -43,6 +43,13 @@ const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: "30d",
     });
+};
+
+// Helper to get Gravatar URL
+const getGravatarUrl = (email) => {
+    if (!email) return "";
+    const hash = crypto.createHash("md5").update(email.trim().toLowerCase()).digest("hex");
+    return `https://www.gravatar.com/avatar/${hash}?d=identicon`;
 };
 
 // @desc    Register new citizen
@@ -121,6 +128,7 @@ export const registerUser = async (req, res) => {
         pendingUser.status = "active";
         pendingUser.isVerified = false;
         pendingUser.isMobileVerified = true;
+        pendingUser.avatar = getGravatarUrl(cleanEmail);
         pendingUser.verificationToken = verificationToken;
         pendingUser.verificationTokenExpiry = verificationTokenExpiry;
         pendingUser.mobileOTP = undefined;
