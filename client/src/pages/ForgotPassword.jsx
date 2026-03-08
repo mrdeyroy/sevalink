@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Mail, Phone, Lock, Eye, EyeOff, CheckCircle, RefreshCw } from "lucide-react";
 import AuthLayout from "../components/AuthLayout";
+import API_BASE_URL from "../config/api";
 
 const isMobileNumber = (val) => /^[6-9]\d{9}$/.test(val.trim());
 
@@ -34,7 +35,7 @@ const ForgotPassword = () => {
         setError("");
         setLoading(true);
         try {
-            await axios.post("http://localhost:5000/api/auth/forgot-password", { identifier });
+            await axios.post(`${API_BASE_URL}/api/auth/forgot-password`, { identifier });
             setStep(2);
             setTimeLeft(300); // 5 minutes
             setSuccess("OTP sent! Check your email or SMS.");
@@ -62,7 +63,7 @@ const ForgotPassword = () => {
         }
         setLoading(true);
         try {
-            await axios.post("http://localhost:5000/api/auth/verify-otp-reset", {
+            await axios.post(`${API_BASE_URL}/api/auth/verify-otp-reset`, {
                 identifier,
                 otp,
                 newPassword,

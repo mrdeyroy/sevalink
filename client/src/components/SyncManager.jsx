@@ -3,6 +3,7 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import useNetworkStatus from "../hooks/useNetworkStatus";
 import { getOfflineRequests, deleteOfflineRequest } from "../utils/db";
+import API_BASE_URL from "../config/api";
 
 const SyncManager = ({ onSyncComplete }) => {
     const isOnline = useNetworkStatus();
@@ -36,7 +37,7 @@ const SyncManager = ({ onSyncComplete }) => {
                                 },
                             };
 
-                            await axios.post("http://localhost:5000/api/requests", formData, config);
+                            await axios.post(`${API_BASE_URL}/api/requests`, formData, config);
                             await deleteOfflineRequest(req.id);
                             syncedCount++;
                         } catch (error) {

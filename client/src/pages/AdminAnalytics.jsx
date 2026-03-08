@@ -30,6 +30,7 @@ import {
     Legend
 } from "recharts";
 import toast from "react-hot-toast";
+import API_BASE_URL from "../config/api";
 
 const AdminAnalytics = () => {
     const { user } = useAuth();
@@ -52,11 +53,11 @@ const AdminAnalytics = () => {
         const startTime = Date.now();
         try {
             const results = await Promise.allSettled([
-                axios.get("http://localhost:5000/api/admin/analytics/overview", config),
-                axios.get("http://localhost:5000/api/admin/analytics/hotspots", config),
-                axios.get("http://localhost:5000/api/admin/analytics/worker-performance", config),
-                axios.get("http://localhost:5000/api/admin/analytics/categories", config),
-                axios.get("http://localhost:5000/api/admin/analytics/engagement", config)
+                axios.get(`${API_BASE_URL}/api/admin/analytics/overview`, config),
+                axios.get(`${API_BASE_URL}/api/admin/analytics/hotspots`, config),
+                axios.get(`${API_BASE_URL}/api/admin/analytics/worker-performance`, config),
+                axios.get(`${API_BASE_URL}/api/admin/analytics/categories`, config),
+                axios.get(`${API_BASE_URL}/api/admin/analytics/engagement`, config)
             ]);
 
             const [overviewRes, hotspotsRes, workerRes, categoryRes, engagementRes] = results;

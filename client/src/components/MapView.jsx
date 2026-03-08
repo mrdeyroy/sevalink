@@ -5,6 +5,7 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import HeatMapLayer from './HeatMapLayer';
 import { useState } from 'react';
+import API_BASE_URL from "../config/api";
 
 let DefaultIcon = L.icon({
     iconUrl: icon,
@@ -72,7 +73,7 @@ const MapView = ({ requests, heatPoints, zoom = 5 }) => {
                                         {request.status}
                                     </span>
                                     <img
-                                        src={(!request.imageUrl || request.imageUrl.startsWith("http")) ? "/citizen_issue.png" : `http://localhost:5000${request.imageUrl}`}
+                                        src={(!request.imageUrl || request.imageUrl.startsWith("http")) ? "/citizen_issue.png" : `${API_BASE_URL}${request.imageUrl}`}
                                         alt="Preview"
                                         className="w-full h-20 object-cover mt-2 rounded"
                                         onError={(e) => { e.currentTarget.src = "/citizen_issue.png"; }}

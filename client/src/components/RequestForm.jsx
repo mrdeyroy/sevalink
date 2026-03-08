@@ -10,6 +10,7 @@ import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import useNetworkStatus from "../hooks/useNetworkStatus";
 import { saveRequestOffline } from "../utils/db";
+import API_BASE_URL from "../config/api";
 
 // Fix default marker icon
 let DefaultIcon = L.icon({
@@ -258,7 +259,7 @@ const RequestForm = ({ onRequestAdded }) => {
                     Authorization: `Bearer ${user.token}`,
                 },
             };
-            const { data } = await axios.post("http://localhost:5000/api/requests", formData, config);
+            const { data } = await axios.post(`${API_BASE_URL}/api/requests`, formData, config);
             setSuccessMsg("Request submitted successfully!");
             setSuccessId(data._id);
             toast.success("Request submitted successfully! 🎉");

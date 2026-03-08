@@ -11,6 +11,7 @@ import RequestDetailsModal from "../components/RequestDetailsModal";
 import CreateWorkerModal from "../components/CreateWorkerModal";
 import PageLoader from "../components/PageLoader";
 import { LayoutDashboard, List, Map as MapIcon, Eye, UserPlus, Filter, Search, Users, XCircle, UserMinus, UserCheck, Phone, Trash2, AlertTriangle, Megaphone, Plus, Ban, CheckCircle, Clock, Zap, ChevronLeft, ChevronRight, ArrowUpDown, X as XIcon, AlertCircle as AlertCircleIcon, TrendingUp } from "lucide-react";
+import API_BASE_URL from "../config/api";
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -87,14 +88,14 @@ const AdminDashboard = () => {
         try {
             console.log("Fetching Admin Data...");
             const results = await Promise.allSettled([
-                axios.get("http://localhost:5000/api/admin/stats", config),
-                axios.get("http://localhost:5000/api/requests", config),
-                axios.get("http://localhost:5000/api/admin/workers", config),
-                axios.get("http://localhost:5000/api/admin/users", config),
-                axios.get("http://localhost:5000/api/announcements", config),
-                axios.get("http://localhost:5000/api/admin/analytics/resolution-time", config),
-                axios.get("http://localhost:5000/api/admin/analytics/worker-performance", config),
-                axios.get("http://localhost:5000/api/admin/analytics/area-insights", config)
+                axios.get(`${API_BASE_URL}/api/admin/stats`, config),
+                axios.get(`${API_BASE_URL}/api/requests`, config),
+                axios.get(`${API_BASE_URL}/api/admin/workers`, config),
+                axios.get(`${API_BASE_URL}/api/admin/users`, config),
+                axios.get(`${API_BASE_URL}/api/announcements`, config),
+                axios.get(`${API_BASE_URL}/api/admin/analytics/resolution-time`, config),
+                axios.get(`${API_BASE_URL}/api/admin/analytics/worker-performance`, config),
+                axios.get(`${API_BASE_URL}/api/admin/analytics/area-insights`, config)
             ]);
 
             const [statsResult, requestsResult, workersResult, usersResult, annResult, resAnalyticsResult, perfResult, areaResult] = results;
@@ -135,7 +136,7 @@ const AdminDashboard = () => {
         try {
             console.log("Sending assignment request for:", selectedRequest._id, "Worker:", workerId);
             await axios.put(
-                `http://localhost:5000/api/requests/${selectedRequest._id}/assign`,
+                `${API_BASE_URL}/api/requests/${selectedRequest._id}/assign`,
                 { workerId },
                 config
             );
@@ -151,7 +152,7 @@ const AdminDashboard = () => {
     const handleStatusUpdate = async (id, newStatus) => {
         try {
             await axios.put(
-                `http://localhost:5000/api/requests/${id}/status`,
+                `${API_BASE_URL}/api/requests/${id}/status`,
                 { status: newStatus },
                 config
             );
@@ -166,7 +167,7 @@ const AdminDashboard = () => {
     const handlePriorityUpdate = async (id, newPriority) => {
         try {
             await axios.put(
-                `http://localhost:5000/api/requests/${id}/status`,
+                `${API_BASE_URL}/api/requests/${id}/status`,
                 { priority: newPriority },
                 config
             );
@@ -186,7 +187,7 @@ const AdminDashboard = () => {
     const handleCreateWorker = async (name, mobile, password) => {
         try {
             const res = await axios.post(
-                "http://localhost:5000/api/admin/create-worker",
+                `${API_BASE_URL}/api/admin/create-worker`,
                 { name, mobile, password },
                 config
             );
@@ -202,7 +203,7 @@ const AdminDashboard = () => {
 
     const handleSuspendWorker = async (id) => {
         try {
-            await axios.patch(`http://localhost:5000/api/admin/suspend-user/${id}`, {}, config);
+            await axios.patch(`${API_BASE_URL}/api/admin/suspend-user/${id}`, {}, config);
             fetchData();
         } catch (error) {
             console.error("Suspend toggle failed", error);
@@ -212,7 +213,7 @@ const AdminDashboard = () => {
     const handleDeleteWorker = async () => {
         if (!workerToDelete) return;
         try {
-            await axios.delete(`http://localhost:5000/api/admin/workers/${workerToDelete._id}`, config);
+            await axios.delete(`${API_BASE_URL}/api/admin/workers/${workerToDelete._id}`, config);
             setWorkerToDelete(null);
             fetchData();
         } catch (error) {
@@ -222,7 +223,7 @@ const AdminDashboard = () => {
 
     const handleBanUser = async (id) => {
         try {
-            await axios.patch(`http://localhost:5000/api/admin/ban-user/${id}`, {}, config);
+            await axios.patch(`${API_BASE_URL}/api/admin/ban-user/${id}`, {}, config);
             fetchData();
         } catch (error) {
             console.error("Ban toggle failed", error);
@@ -232,7 +233,7 @@ const AdminDashboard = () => {
     const handleDeleteUser = async () => {
         if (!userToDelete) return;
         try {
-            await axios.delete(`http://localhost:5000/api/admin/users/${userToDelete._id}`, config);
+            await axios.delete(`${API_BASE_URL}/api/admin/users/${userToDelete._id}`, config);
             setUserToDelete(null);
             fetchData();
         } catch (error) {
@@ -245,7 +246,7 @@ const AdminDashboard = () => {
         if (!annTitle.trim() || !annMessage.trim()) return;
         setAnnLoading(true);
         try {
-            await axios.post("http://localhost:5000/api/announcements", { title: annTitle, message: annMessage }, config);
+            await axios.post(`${API_BASE_URL}/api/announcements`, { title: annTitle, message: annMessage }, config);
             setAnnTitle("");
             setAnnMessage("");
             fetchData();
@@ -258,7 +259,7 @@ const AdminDashboard = () => {
 
     const handleDeleteAnnouncement = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/announcements/${id}`, config);
+            await axios.delete(`${API_BASE_URL}/api/announcements/${id}`, config);
             fetchData();
         } catch (err) {
             alert(`Failed to delete announcement.`);

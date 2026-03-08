@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Lock, Eye, EyeOff, Shield, Mail, Phone, HardHat } from "lucide-react";
 import AuthLayout from "../components/AuthLayout";
+import API_BASE_URL from "../config/api";
 
 // Detect if string looks like a 10-digit Indian mobile number
 const isMobileNumber = (val) => /^[6-9]\d{9}$/.test(val.trim());
@@ -190,7 +191,7 @@ const Login = () => {
                     {/* Google */}
                     <button
                         id="google-login-btn"
-                        onClick={() => window.location.href = "http://localhost:5000/api/auth/google"}
+                        onClick={() => window.location.href = `${API_BASE_URL}/api/auth/google`}
                         className="w-full flex items-center justify-center gap-3 border border-slate-200 bg-white hover:bg-slate-50 active:bg-slate-100 py-3 rounded-xl transition-all text-sm font-medium text-slate-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className="w-5 h-5">
