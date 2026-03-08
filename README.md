@@ -209,17 +209,21 @@ SevaLink can scale through:
 
 # 📸 Project Screenshots
 
-*(Add screenshots here)*
+<p align="center">
+  <img src="https://github.com/mrdeyroy/sevalink/blob/main/screenshort/SS1.png?raw=true" width="800"/>
+</p>
 
-Example:
+<p align="center">
+  <img src="https://github.com/mrdeyroy/sevalink/blob/main/screenshort/SS2.png?raw=true" width="800"/>
+</p>
 
-```
-/screenshots
-  citizen-dashboard.png
-  admin-dashboard.png
-  worker-dashboard.png
-  map-view.png
-```
+<p align="center">
+  <img src="https://github.com/mrdeyroy/sevalink/blob/main/screenshort/SS3.png?raw=true" width="800"/>
+</p>
+
+<p align="center">
+  <img src="https://github.com/mrdeyroy/sevalink/blob/main/screenshort/SS4.png?raw=true" width="800"/>
+</p>
 
 ---
 
@@ -227,15 +231,11 @@ Example:
 
 ### GitHub Repository
 
-(https://github.com/mrdeyroy/sevalink)
+(https://github.com/mrdeyroy/sevalink.git)
 
 ### Live Demo
 
 (https://sevalink-frontend.onrender.com)
-
-### Demo Video
-
-(https://drive.google.com/drive/folders/1w_ahCMDiSBBoQkpBuIi3b3dOb8wikbcs?usp=sharing)
 
 ---
 
