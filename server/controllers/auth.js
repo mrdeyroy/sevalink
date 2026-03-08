@@ -99,7 +99,12 @@ export const registerUser = async (req, res) => {
             await pendingUser.save();
 
             return res.status(201).json({
-                message: "Registration successful! You can now log in with your mobile number.",
+                message: "Registration successful!",
+                _id: pendingUser._id,
+                name: pendingUser.name,
+                mobile: pendingUser.mobile,
+                role: "citizen",
+                token: generateToken(pendingUser._id),
                 mobile_only: true,
             });
         }

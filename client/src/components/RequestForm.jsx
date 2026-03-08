@@ -246,8 +246,8 @@ const RequestForm = ({ onRequestAdded }) => {
         formData.append("title", title);
         formData.append("description", description);
         formData.append("category", category);
-        if (location.latitude) formData.append("latitude", location.latitude);
-        if (location.longitude) formData.append("longitude", location.longitude);
+        if (location.latitude !== null && location.latitude !== undefined) formData.append("latitude", location.latitude);
+        if (location.longitude !== null && location.longitude !== undefined) formData.append("longitude", location.longitude);
         formData.append("address", location.address || "Manual entry");
         if (image) formData.append("image", image);
 

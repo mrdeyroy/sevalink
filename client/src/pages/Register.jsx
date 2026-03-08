@@ -5,6 +5,7 @@ import {
     User, Mail, Lock, Eye, EyeOff, UserPlus,
     Phone, ShieldCheck, RefreshCw, CheckCircle2,
 } from "lucide-react";
+import { toast } from "react-hot-toast";
 import AuthLayout from "../components/AuthLayout";
 
 const RESEND_COOLDOWN = 30; // seconds
@@ -105,14 +106,23 @@ const Register = () => {
         try {
             const result = await register(name, email, mobile.trim(), password);
             if (result.mobile_only) {
-                // Mobile-only: no email verification needed, go to login
-                navigate("/login");
+                if (result.token) {
+                    toast.success("Account creation successful!");
+                    navigate("/dashboard");
+                } else {
+                    // Fallback for old server response format
+                    toast.success("Account created! Please log in.");
+                    setInfo("Account created! Please log in with your credentials.");
+                    navigate("/login");
+                }
             } else {
                 // Email + mobile: email verification required
+                toast.success("Registration successful! Please verify your email.");
                 navigate(`/verify/${email}`);
             }
         } catch (err) {
             setError(err.response?.data?.message || "Registration failed. Please try again.");
+            toast.error(err.response?.data?.message || "Registration failed.");
         } finally {
             setLoading(false);
         }

@@ -5,6 +5,7 @@ import User from "../models/User.js";
 // @route   POST /api/requests
 // @access  Private
 export const createRequest = async (req, res) => {
+    console.log("[CreateRequest] Body:", req.body);
     try {
         const { title, description, category, latitude, longitude, address } =
             req.body;
@@ -12,6 +13,7 @@ export const createRequest = async (req, res) => {
 
         if (req.file) {
             imageUrl = `/uploads/${req.file.filename}`;
+            console.log("[CreateRequest] Image uploaded:", imageUrl);
         }
 
         // Generate complaint ID: SVL-YYYY-XXXX
@@ -26,6 +28,7 @@ export const createRequest = async (req, res) => {
         }
         const seq = String(nextSeq).padStart(4, "0");
         const complaintId = `SVL-${year}-${seq}`;
+        console.log("[CreateRequest] Generated ID:", complaintId);
 
         const request = new Request({
             complaintId,
@@ -34,8 +37,8 @@ export const createRequest = async (req, res) => {
             category,
             imageUrl,
             location: {
-                latitude,
-                longitude,
+                latitude: (latitude !== undefined && latitude !== null && latitude !== "") ? Number(latitude) : undefined,
+                longitude: (longitude !== undefined && longitude !== null && longitude !== "") ? Number(longitude) : undefined,
                 address,
             },
             createdBy: req.user._id,
@@ -43,9 +46,12 @@ export const createRequest = async (req, res) => {
                 { action: "Request Submitted", timestamp: new Date(), details: `Complaint ${complaintId} created by citizen` },
             ],
         });
+
         const createdRequest = await request.save();
+        console.log("[CreateRequest] Saved successfully:", createdRequest.complaintId);
         res.status(201).json(createdRequest);
     } catch (error) {
+        console.error("[CreateRequest] ERROR:", error);
         res.status(500).json({ message: error.message });
     }
 };

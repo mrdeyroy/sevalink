@@ -15,8 +15,12 @@ export const protect = async (req, res, next) => {
 
             req.user = await User.findById(decoded.id).select("-password");
 
+            if (!req.user) {
+                return res.status(401).json({ message: "User not found, correlation failed" });
+            }
+
             // Verify active status
-            if (req.user && req.user.status !== "active") {
+            if (req.user.status !== "active") {
                 return res.status(403).json({ message: "Account is not active." });
             }
 

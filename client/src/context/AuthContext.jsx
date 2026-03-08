@@ -72,8 +72,10 @@ export const AuthProvider = ({ children }) => {
         if (data.pending_verification) {
             return data;
         }
-        localStorage.setItem("token", data.token);
-        setUser(data);
+        if (data.token) {
+            localStorage.setItem("token", data.token);
+            setUser(data);
+        }
         return data;
     };
 
