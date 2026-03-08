@@ -227,15 +227,15 @@ Example:
 
 ### GitHub Repository
 
-(Add your GitHub link)
+(https://github.com/mrdeyroy/sevalink)
 
 ### Live Demo
 
-(Add deployed link)
+(https://sevalink-frontend.onrender.com)
 
 ### Demo Video
 
-(Add demo video link)
+(https://drive.google.com/drive/folders/1w_ahCMDiSBBoQkpBuIi3b3dOb8wikbcs?usp=sharing)
 
 ---
 
