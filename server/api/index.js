@@ -8,6 +8,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import passport from "passport";
 import path from "path";
+import { fileURLToPath } from "url";
 
 import "../config/passport.js";
 import authRoutes from "../routes/auth.js";
@@ -17,6 +18,15 @@ import announcementRoutes from "../routes/announcement.js";
 import healthRoutes from "../routes/health.js";
 
 const app = express();
+
+/*
+================================
+Resolve directory for ES modules
+================================
+*/
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /*
 ================================
@@ -38,27 +48,37 @@ Middleware
 
 app.use(express.json());
 
-// Serve uploaded images
-app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+/*
+================================
+Serve uploaded images
+================================
+*/
 
-// Explicitly handle preflight OPTIONS for all routes
-app.options('*', cors({
-    origin: function (origin, callback) {
-        callback(null, true);
-    },
+const uploadsPath = path.join(__dirname, "../../uploads");
+app.use("/uploads", express.static(uploadsPath));
+
+/*
+================================
+CORS
+================================
+*/
+
+app.options("*", cors({
+    origin: true,
     credentials: true
 }));
 
-app.use(
-    cors({
-        origin: function (origin, callback) {
-            if (!origin) return callback(null, true);
-            return callback(null, true);
-        },
-        credentials: true,
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
-    })
-);
+app.use(cors({
+    origin: true,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+}));
+
+/*
+================================
+Security & Logging
+================================
+*/
 
 app.use(
     helmet({
@@ -110,21 +130,17 @@ MongoDB Connection
 */
 
 if (!process.env.MONGO_URI) {
-    console.error("CRITICAL: MONGO_URI is not defined. Server cannot start.");
+    console.error("CRITICAL: MONGO_URI is not defined.");
     process.exit(1);
 }
 
-if (!mongoose.connection.readyState) {
-    mongoose
-        .connect(process.env.MONGO_URI)
-        .then(() => {
-            console.log("✅ MongoDB Connected");
-        })
-        .catch((err) => {
-            console.error("❌ MongoDB Connection Failed:", err.message);
-            process.exit(1);
-        });
-}
+mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => console.log("✅ MongoDB Connected"))
+    .catch((err) => {
+        console.error("❌ MongoDB Connection Failed:", err.message);
+        process.exit(1);
+    });
 
 /*
 ================================
