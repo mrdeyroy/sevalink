@@ -20,7 +20,7 @@ export const updateProfile = async (req, res) => {
         if (req.body.removeAvatar === "true") {
             user.avatar = "";
         } else if (req.file) {
-            user.avatar = `http://localhost:5000/uploads/${req.file.filename}`;
+            user.avatar = `https://sevalink-backend-76zq.onrender.com/uploads/${req.file.filename}`;
         }
 
         await user.save();
