@@ -386,20 +386,13 @@ export const getMe = async (req, res) => {
 // @route   GET /api/auth/google/callback
 // @access  Public
 export const googleAuthCallback = (req, res) => {
-    const frontend = process.env.CLIENT_URL || "http://localhost:5173";
-
-    console.log("CLIENT_URL:", frontend); // temporary debug
-
     if (!req.user) {
-        return res.redirect(`${frontend}/login?error=Google authentication failed`);
+        return res.redirect(`${process.env.CLIENT_URL}/?error=Google authentication failed`);
     }
 
     const token = generateToken(req.user._id);
 
-    const redirectURL = `${frontend}/login?token=${token}`;
-    console.log("Redirecting to:", redirectURL);
-
-    return res.redirect(redirectURL);
+    res.redirect(`${process.env.CLIENT_URL}/?token=${token}`);
 };
 
 // @desc    Forgot Password — send OTP via email OR mobile
